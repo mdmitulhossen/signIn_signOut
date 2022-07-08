@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import './App.css';
 import firebaseConfig from './components/firebaseConfig/Firebase.config';
-import { getAuth,signInWithPopup,GoogleAuthProvider,signOut } from "firebase/auth";
+import { getAuth,signInWithPopup,GoogleAuthProvider,signOut,FacebookAuthProvider } from "firebase/auth";
 import { useState } from 'react';
 
 const app=initializeApp(firebaseConfig);
@@ -49,6 +49,29 @@ function App() {
       console.log(error.massage)
     });
   }
+
+  //SignIn using Facebook
+   const handleFbSignIn=()=>{
+    const provider= new FacebookAuthProvider();
+
+    signInWithPopup(auth,provider)
+    .then(res=>{
+      const {displayName,email,photoURL}=res.user;
+     const users={
+      isSignIn:true,
+      name:displayName,
+      email:email,
+      photo:photoURL
+     };
+     setuser(users)
+
+    console.log(res.user)
+      
+    }).catch(err=>{
+      console.log(err.massage)
+    })
+   }
+
   console.log(auth)
   return (
     <div className="App">
@@ -56,6 +79,8 @@ function App() {
         user.isSignIn?<button onClick={handleSignOut}>Sign Out</button>
         :<button onClick={handleSignIn}>Sign In</button>
       }
+      <br/>
+      <button onClick={handleFbSignIn}>SignIn using Facebook</button>
       
       {user.isSignIn &&
         <div>
