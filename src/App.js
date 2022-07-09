@@ -91,7 +91,7 @@ function App() {
           if(!r.test(e.target.value) && e.target.value.length<8 && !(e.target.value==='')){
             alert('Enter valid Password!!')
           }
-           setPass(...pass,e.target.value)
+           setPass(e.target.value)
     }
     else if(e.target.name==="email"){
           console.log("Email ",e.target.value)
@@ -101,13 +101,15 @@ function App() {
             alert('Enter Valid Email!!')
           }
 
-           setMail(...mail, e.target.value)
+           setMail( e.target.value)
 
     }
+    e.preventDefault()
     
-    e.preventDefault();
   }
 
+
+  console.log(mail,pass)
   //jhedfusikfdewre
 
   const handleEmailpassSignIn = ()=>{
@@ -174,14 +176,14 @@ function App() {
       <button onClick={handleFbSignIn}>SignIn using Facebook</button>
       <br/>
       <br/>
-      <form>
+      <form onSubmit={changeInput}>
         
           <input type="text" name="text" onBlur={changeInput} placeholder='Enter your Name'/><br/>
           <input type="email" name="email" onBlur={changeInput} placeholder='Enter your Email'/><br/>
           <input type="password" name="password" onBlur={changeInput} placeholder='Enter Password'/><br/>
           {/* <input type="submit" name="submit" onClick={handleEmailPassLogIn} placeholder='LogIn'/><br/> */}
           
-          <button onClick={handleEmailpassSignIn}>Resister</button><br/>
+          <button>Resister</button><br/>
           <button >SignIn</button>
         
         {/* <button onClick={()=>{handleEmailPassLogIn(email,password)}}>SignIn</button> */}
